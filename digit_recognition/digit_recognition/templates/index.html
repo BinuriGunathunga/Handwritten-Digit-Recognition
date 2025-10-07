@@ -167,7 +167,7 @@
             border-color: #764ba2;
         }
         
-        #fileInput, #batchFileInput, #mathFileInput {
+        #fileInput, #batchFileInput {
             display: none;
         }
         
@@ -300,26 +300,6 @@
             font-size: 12px;
             color: #666;
         }
-
-        /* Webcam Styles */
-        #webcamVideo, #webcamCanvas {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .webcam-controls {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 20px 0;
-        }
-
-        .webcam-controls .btn {
-            width: auto;
-            padding: 12px 30px;
-            margin: 0;
-        }
         
         .btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -344,14 +324,6 @@
             background: #ccc;
             cursor: not-allowed;
             transform: none;
-        }
-
-        .btn.btn-danger {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-        }
-
-        .btn.btn-success {
-            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
         }
         
         .result-container {
@@ -462,33 +434,18 @@
             font-size: 14px;
             margin-top: 5px;
         }
-
-        .tips-box {
-            background: #fff3cd;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            border-left: 4px solid #f39c12;
-        }
-
-        .tips-box ul {
-            margin: 10px 0 0 20px;
-            color: #666;
-            font-size: 13px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🔢 Handwritten Digit Recognition</h1>
-        <p class="subtitle">Draw, upload, batch process, or use webcam for digit recognition</p>
+        <p class="subtitle">Draw, upload single, or upload multiple digit images (0-9)</p>
         
         <!-- Tabs -->
         <div class="tabs">
             <button class="tab active" data-tab="draw">✏️ Draw</button>
             <button class="tab" data-tab="upload">📤 Upload Single</button>
             <button class="tab" data-tab="batch">📁 Batch Upload</button>
-            <button class="tab" data-tab="webcam">📷 Webcam</button>
             <button class="tab" data-tab="math">🧮 Math Solver</button>
         </div>
         
@@ -556,73 +513,20 @@
             <div class="progress-text" id="progressText"></div>
         </div>
 
-        <!-- Webcam Tab -->
-        <div class="tab-content" id="webcam">
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h3 style="color: #667eea;">📷 Real-time Digit Detection</h3>
-                <p style="color: #666; font-size: 14px;">Use your webcam to detect handwritten digits in real-time</p>
-            </div>
-
-            <div class="tips-box">
-                <strong>📝 Tips:</strong>
-                <ul>
-                    <li>Hold digit in front of camera clearly</li>
-                    <li>Use white paper with black marker</li>
-                    <li>Ensure good lighting</li>
-                    <li>Keep digit centered in the frame</li>
-                </ul>
-            </div>
-
-            <div style="text-align: center; margin: 20px 0;">
-                <video id="webcamVideo" width="400" height="300" autoplay style="border: 3px solid #667eea; border-radius: 10px; display: none; background: #000;"></video>
-                <canvas id="webcamCanvas" width="400" height="300" style="border: 3px solid #667eea; border-radius: 10px; display: none;"></canvas>
-                
-                <div id="webcamPlaceholder" style="width: 400px; height: 300px; margin: 0 auto; border: 3px dashed #667eea; border-radius: 10px; display: flex; align-items: center; justify-content: center; background: #f8f9ff; max-width: 100%;">
-                    <div style="text-align: center; color: #667eea;">
-                        <div style="font-size: 48px; margin-bottom: 10px;">📷</div>
-                        <div style="font-size: 16px;">Click "Start Camera" to begin</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="webcam-controls">
-                <button class="btn" id="startWebcamBtn">📷 Start Camera</button>
-                <button class="btn btn-danger" id="stopWebcamBtn" style="display: none;">🛑 Stop Camera</button>
-                <button class="btn" id="captureWebcamBtn" style="display: none;">📸 Capture & Predict</button>
-                <button class="btn btn-success" id="continuousDetectionBtn" style="display: none;">🔄 Continuous Detection</button>
-            </div>
-
-            <div style="text-align: center; margin: 15px 0;">
-                <label style="color: #666; font-size: 14px;">
-                    <input type="checkbox" id="liveDetectionMode" style="margin-right: 5px;">
-                    Enable Live Detection (updates every 2 seconds)
-                </label>
-            </div>
-
-            <div class="result-container" id="webcamResultContainer">
-                <div class="result-title">Detected Digit:</div>
-                <div class="predicted-digit" id="webcamPredictedDigit">-</div>
-                <div class="confidence" id="webcamConfidence">Confidence: -</div>
-                
-                <div class="result-title">All Probabilities:</div>
-                <div class="probabilities" id="webcamProbabilities"></div>
-            </div>
-        </div>
-
         <!-- Math Solver Tab -->
         <div class="tab-content" id="math">
             <div class="upload-area" id="mathUploadArea">
                 <div class="upload-icon">🧮</div>
                 <div class="upload-text">
                     Upload an image with a math expression<br>
-                    <small>Example: "12 + 34" or "8 × 9"</small>
+                    <small>Example: "12 + 34" or "8 × 9"</small><br>
                 </div>
                 <input type="file" id="mathFileInput" accept="image/*">
             </div>
 
-            <div class="tips-box">
+            <div style="background: #fff3cd; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #f39c12;">
                 <strong>📝 Tips for Best Results:</strong>
-                <ul>
+                <ul style="margin: 10px 0 0 20px; color: #666; font-size: 13px;">
                     <li><strong>Write large and clear</strong> - Make numbers at least 2-3cm tall</li>
                     <li><strong>Use proper spacing</strong> - Leave gaps between digits and operators</li>
                     <li><strong>Black on white</strong> - Use dark pen/pencil on white paper</li>
@@ -694,13 +598,7 @@
                 document.getElementById('resultContainer').style.display = 'none';
                 document.getElementById('batchResultContainer').style.display = 'none';
                 document.getElementById('mathResultContainer').style.display = 'none';
-                document.getElementById('webcamResultContainer').style.display = 'none';
                 document.getElementById('error').style.display = 'none';
-
-                // Stop webcam when switching away from webcam tab
-                if (tabId !== 'webcam' && webcamStream) {
-                    stopWebcam();
-                }
             });
         });
         
@@ -976,6 +874,7 @@
                     `;
                     batchPreviewGrid.appendChild(itemDiv);
 
+                    // Add remove button event
                     itemDiv.querySelector('.batch-remove-btn').addEventListener('click', () => {
                         removeBatchFile(index);
                     });
@@ -1023,6 +922,7 @@
                     const data = await response.json();
 
                     if (response.ok) {
+                        // Read file as data URL for display
                         const reader = new FileReader();
                         const imageDataUrl = await new Promise((resolve) => {
                             reader.onload = (e) => resolve(e.target.result);
@@ -1051,11 +951,13 @@
                     });
                 }
 
+                // Update progress
                 const progress = ((i + 1) / totalFiles) * 100;
                 progressBarFill.style.width = progress + '%';
                 progressText.textContent = `Processing ${i + 1} of ${totalFiles}...`;
             }
 
+            // Display all results
             displayBatchResults(results);
             progressBar.style.display = 'none';
             progressText.textContent = '';
@@ -1088,182 +990,6 @@
             });
 
             batchResultContainer.style.display = 'block';
-        }
-
-        // Webcam Detection functionality
-        const webcamVideo = document.getElementById('webcamVideo');
-        const webcamCanvas = document.getElementById('webcamCanvas');
-        const webcamCtx = webcamCanvas.getContext('2d');
-        const webcamPlaceholder = document.getElementById('webcamPlaceholder');
-        const startWebcamBtn = document.getElementById('startWebcamBtn');
-        const stopWebcamBtn = document.getElementById('stopWebcamBtn');
-        const captureWebcamBtn = document.getElementById('captureWebcamBtn');
-        const continuousDetectionBtn = document.getElementById('continuousDetectionBtn');
-        const liveDetectionMode = document.getElementById('liveDetectionMode');
-        const webcamResultContainer = document.getElementById('webcamResultContainer');
-
-        let webcamStream = null;
-        let liveDetectionInterval = null;
-        let isLiveDetecting = false;
-
-        startWebcamBtn.addEventListener('click', async () => {
-            try {
-                webcamStream = await navigator.mediaDevices.getUserMedia({ 
-                    video: { 
-                        width: 400, 
-                        height: 300,
-                        facingMode: 'environment'
-                    } 
-                });
-                
-                webcamVideo.srcObject = webcamStream;
-                webcamPlaceholder.style.display = 'none';
-                webcamVideo.style.display = 'block';
-                startWebcamBtn.style.display = 'none';
-                stopWebcamBtn.style.display = 'inline-block';
-                captureWebcamBtn.style.display = 'inline-block';
-                continuousDetectionBtn.style.display = 'inline-block';
-                
-                error.style.display = 'none';
-            } catch (err) {
-                showError('Camera access denied or not available. Please allow camera permissions.');
-                console.error('Webcam error:', err);
-            }
-        });
-
-        stopWebcamBtn.addEventListener('click', () => {
-            stopWebcam();
-        });
-
-        function stopWebcam() {
-            if (webcamStream) {
-                webcamStream.getTracks().forEach(track => track.stop());
-                webcamStream = null;
-            }
-            
-            if (liveDetectionInterval) {
-                clearInterval(liveDetectionInterval);
-                liveDetectionInterval = null;
-                isLiveDetecting = false;
-                continuousDetectionBtn.textContent = '🔄 Continuous Detection';
-                continuousDetectionBtn.classList.remove('btn-danger');
-                continuousDetectionBtn.classList.add('btn-success');
-            }
-            
-            webcamVideo.style.display = 'none';
-            webcamPlaceholder.style.display = 'flex';
-            startWebcamBtn.style.display = 'inline-block';
-            stopWebcamBtn.style.display = 'none';
-            captureWebcamBtn.style.display = 'none';
-            continuousDetectionBtn.style.display = 'none';
-            webcamResultContainer.style.display = 'none';
-            liveDetectionMode.checked = false;
-        }
-
-        captureWebcamBtn.addEventListener('click', () => {
-            captureAndPredict();
-        });
-
-        continuousDetectionBtn.addEventListener('click', () => {
-            if (!isLiveDetecting) {
-                isLiveDetecting = true;
-                continuousDetectionBtn.textContent = '⏸️ Pause Detection';
-                continuousDetectionBtn.classList.remove('btn-success');
-                continuousDetectionBtn.classList.add('btn-danger');
-                
-                liveDetectionInterval = setInterval(() => {
-                    captureAndPredict();
-                }, 2000);
-                
-                captureAndPredict();
-            } else {
-                clearInterval(liveDetectionInterval);
-                liveDetectionInterval = null;
-                isLiveDetecting = false;
-                continuousDetectionBtn.textContent = '🔄 Continuous Detection';
-                continuousDetectionBtn.classList.remove('btn-danger');
-                continuousDetectionBtn.classList.add('btn-success');
-            }
-        });
-
-        liveDetectionMode.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                if (!liveDetectionInterval) {
-                    liveDetectionInterval = setInterval(() => {
-                        captureAndPredict();
-                    }, 2000);
-                    captureAndPredict();
-                }
-            } else {
-                if (liveDetectionInterval) {
-                    clearInterval(liveDetectionInterval);
-                    liveDetectionInterval = null;
-                }
-            }
-        });
-
-        async function captureAndPredict() {
-            if (!webcamStream) return;
-
-            webcamCtx.drawImage(webcamVideo, 0, 0, webcamCanvas.width, webcamCanvas.height);
-            
-            webcamCanvas.toBlob(async (blob) => {
-                const formData = new FormData();
-                formData.append('file', blob, 'webcam-capture.png');
-                
-                if (!liveDetectionInterval) {
-                    loading.style.display = 'block';
-                }
-                
-                try {
-                    const response = await fetch('/predict', {
-                        method: 'POST',
-                        body: formData
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (response.ok) {
-                        displayWebcamResult(data);
-                    } else {
-                        if (!liveDetectionInterval) {
-                            showError(data.error || 'Prediction failed');
-                        }
-                    }
-                } catch (err) {
-                    if (!liveDetectionInterval) {
-                        showError('Connection error. Please try again.');
-                    }
-                } finally {
-                    if (!liveDetectionInterval) {
-                        loading.style.display = 'none';
-                    }
-                }
-            });
-        }
-
-        function displayWebcamResult(data) {
-            document.getElementById('webcamPredictedDigit').textContent = data.predicted_digit;
-            document.getElementById('webcamConfidence').textContent = `Confidence: ${data.confidence}%`;
-            
-            const webcamProbDiv = document.getElementById('webcamProbabilities');
-            webcamProbDiv.innerHTML = '';
-            
-            for (let i = 0; i < 10; i++) {
-                const prob = data.all_probabilities[i];
-                const item = document.createElement('div');
-                item.className = 'prob-item';
-                item.innerHTML = `
-                    <div class="prob-digit">${i}</div>
-                    <div class="prob-value">${prob.toFixed(1)}%</div>
-                    <div class="prob-bar">
-                        <div class="prob-bar-fill" style="width: ${prob}%"></div>
-                    </div>
-                `;
-                webcamProbDiv.appendChild(item);
-            }
-            
-            webcamResultContainer.style.display = 'block';
         }
 
         // Math Solver functionality
@@ -1355,6 +1081,7 @@
             detectedExpression.textContent = data.expression;
             mathSolution.textContent = data.result;
 
+            // Display character breakdown
             characterList.innerHTML = '';
             data.detected_characters.forEach((char, index) => {
                 const charDiv = document.createElement('div');
